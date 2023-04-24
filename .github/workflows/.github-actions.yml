@@ -1,0 +1,29 @@
+name: Build & Rubocop
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: 'pipelines' 
+          POSTGRES_USER: 'test_user'
+          POSTGRES_PASSWORD: 'test_user_password'
+    container:
+      image: ruby:3.0.1
+      env:
+        RAILS_ENV: test
+        POSTGRES_HOST: postgres
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: bundler set up
+        run: |
+          gem install bundler
+          bundle config set path 'vendor/bundle'
+          bundle check || bundle install -j4
+      - name: run rubocop
+        run: bundle exec rubocop
