@@ -12,7 +12,7 @@ jobs:
           POSTGRES_USER: 'test_user'
           POSTGRES_PASSWORD: 'test_user_password'
     container:
-      image: ruby:3.0.1
+      image: ruby:3.2.2
       env:
         RAILS_ENV: test
         POSTGRES_HOST: postgres
