@@ -2,7 +2,9 @@ require:
   - rubocop
   - rubocop-performance
   - rubocop-rails
-  - rubocop-rspec
+AllCops:
+  Include:
+    - rubocop-rspec
 
 AllCops:
   TargetRubyVersion: 3.2.2
