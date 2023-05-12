@@ -23,22 +23,22 @@ class TasksController < ApplicationController
   end
 
   def edit
-		@task = Task.find_by(id: params[:id])
+    @task = Task.find_by(id: params[:id])
   end
 
   def update
-		@task = Task.find_by(id: params[:id])
-		if @task.update(task_params)
-			flash[:notice]='タスクの編集が完了しました'
-			redirect_to root_path
-		else
-			flash.now[:alert]='タスクの編集に失敗しました'	
-			render 'edit', status: :unprocessable_entity
-		end	
+    @task = Task.find_by(id: params[:id])
+    if @task.update(task_params)
+      flash[:notice]='タスクの編集が完了しました'
+      redirect_to root_path
+    else
+      flash.now[:alert]='タスクの編集に失敗しました'
+      render 'edit', status: :unprocessable_entity
+    end
   end
 
     private
-		def task_params
-			params.require(:task).permit(:title, :body)
-		end
+      def task_params
+        params.require(:task).permit(:title, :body)
+      end
 end
