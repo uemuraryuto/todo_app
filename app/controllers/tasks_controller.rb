@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit]
+  before_action :set_task, only: [:show, :edit, :update]
 
   def index
     @tasks = Task.all
@@ -27,7 +27,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find_by(id: params[:id])
     if @task.update(task_params)
       flash[:notice]='タスクの編集が完了しました'
       redirect_to root_path
