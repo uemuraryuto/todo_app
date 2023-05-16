@@ -3,3 +3,4 @@
     <li><%= @task.body %></li>
 </ul>    
 <%= link_to '編集', edit_task_path %>
+<%= button_to '削除', task_path, method: :delete %>
