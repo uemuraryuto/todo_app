@@ -43,6 +43,7 @@ class TasksController < ApplicationController
     else
       flash.now[:alert] = 'タスクを削除できませんでした'
       render 'show'
+    end
   end
 
     private
