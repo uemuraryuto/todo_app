@@ -1,14 +1,14 @@
 <%= flash.now[:alert] %>
 
 <%= form_with model: @task, local: true do |form| %>
-    <%= render 'layouts/error_messages' %>
-    <p><%= form.label :title %><br>
+  <%= render 'layouts/error_messages' %>
+  <p><%= form.label :title %><br>
     <%= form.text_field :title %> 
-    </p>
+  </p>
 
-    <p><%= form.label :body %><br>
+  <p><%= form.label :body %><br>
     <%= form.text_area :body %> 
-    </p>
+  </p>
 
-    <%= form.submit %> 
+  <%= form.submit %> 
 <% end %>
