@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update]
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @tasks = Task.all
@@ -15,10 +15,10 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      flash[:notice]='タスクの登録が完了しました'
+      flash[:notice] = 'タスクの登録が完了しました'
       redirect_to root_path
     else
-      flash.now[:alert]='タスクの登録に失敗しました'
+      flash.now[:alert] = 'タスクの登録に失敗しました'
       render 'new', status: :unprocessable_entity
     end
   end
@@ -28,11 +28,21 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      flash[:notice]='タスクの編集が完了しました'
+      flash[:notice] = 'タスクの編集が完了しました'
       redirect_to root_path
     else
-      flash.now[:alert]='タスクの編集に失敗しました'
+      flash.now[:alert] = 'タスクの編集に失敗しました'
       render 'edit', status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    if @task.destroy
+      flash[:notice] = 'タスクを削除しました'
+      redirect_to root_path
+    else
+      flash.now[:alert] = 'タスクを削除できませんでした'
+      render 'show'
     end
   end
 
