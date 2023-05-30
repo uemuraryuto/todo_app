@@ -1,0 +1,10 @@
+<%= flash.now[:alert] %>
+
+<%= form_with model: @category, local: true do |form| %>
+    
+  <p><%= form.label :title %><br>
+    <%= form.text_field :title %> 
+  </p>
+
+  <%= form.submit %> 
+<% end %>

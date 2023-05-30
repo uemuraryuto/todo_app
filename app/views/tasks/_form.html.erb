@@ -1,14 +1,20 @@
 <%= flash.now[:alert] %>
 
 <%= form_with model: @task, local: true do |form| %>
-    <%= render 'layouts/error_messages' %>
-    <p><%= form.label :title %><br>
+  <%= render 'layouts/error_messages' %>
+  <p><%= form.label :title %><br>
     <%= form.text_field :title %> 
-    </p>
+  </p>
 
-    <p><%= form.label :body %><br>
+  <p><%= form.label :body %><br>
     <%= form.text_area :body %> 
-    </p>
+  </p>
 
-    <%= form.submit %> 
+  <%= form.label :category_ids, 'カテゴリー' %><br>
+    <%= form.collection_check_boxes :category_ids, Category.all, :id, :title do |cb| %>
+      <%= cb.check_box %>
+      <%= cb.label %>
+    <% end %>
+
+  <%= form.submit %> 
 <% end %>
