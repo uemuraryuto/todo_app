@@ -10,6 +10,7 @@ RSpec.describe CategoriesController, type: :request do
 
   describe 'GET #show' do
     let(:category) { create(:category) }
+
     it '適切なステータスコードが返ってくること' do
       get category_path(category)
       expect(response).to have_http_status 200
@@ -25,6 +26,7 @@ RSpec.describe CategoriesController, type: :request do
 
   describe 'GET #edit' do
     let(:category) { create(:category) }
+
     it '適切なステータスコードが返ってくること' do
       get edit_category_path(category)
       expect(response).to have_http_status 200
@@ -35,17 +37,21 @@ RSpec.describe CategoriesController, type: :request do
     subject { post categories_path, params: category_params }
     context '正常系' do
       let(:category_params) { { category: { title: 'test' } } }
+
       it '適切なステータスコードが返ってくること' do
         subject
         expect(response).to have_http_status 302
       end
+
       it 'レコードがひとつ増えること' do
         expect { subject }.to change(Category, :count).by(1)
       end
+
       it '作成されたレコードの値が意図したものになっていること' do
         subject
         expect(category_params[:category][:title]).to eq (Category.last.title)
       end
+
       it 'redirect 先が正しいこと' do
         subject
         expect(response).to redirect_to(categories_path)
@@ -54,13 +60,16 @@ RSpec.describe CategoriesController, type: :request do
 
     context '異常系' do
       let(:category_params) { { category: { title: '' } } }
+
       it '適切なステータスコードが返ってくること' do
         subject
         expect(response).to have_http_status 422
       end
+
       it 'レコードが増えないこと' do
         expect { subject }.to_not change(Category, :count)
       end
+
       it 'render 先が正しいこと' do
         subject
         expect(response).to render_template(:new)
@@ -73,14 +82,17 @@ RSpec.describe CategoriesController, type: :request do
     context '正常系' do
       let(:category) { create(:category) }
       let(:category_params) { { category: { title: 'test update' } } }
+
       it '適切なステータスコードが返ってくること' do
         subject
         expect(response).to have_http_status 302
       end
+
       it 'レコードの値が意図した値に更新されていること' do
         subject
         expect(category.reload.title).to eq('test update')
       end
+
       it 'redirect 先が正しいこと' do
         subject
         expect(response).to redirect_to(categories_path)
@@ -90,14 +102,17 @@ RSpec.describe CategoriesController, type: :request do
     context '異常系' do
       let(:category) { create(:category) }
       let(:category_params) { { category: { title: '' } } }
+
       it '適切なステータスコードが返ってくること' do
         subject
         expect(response).to have_http_status 422
       end
+
       it 'レコードが更新されないこと' do
         subject
         expect(category.reload.title).to eq('テスト')
       end
+
       it 'render 先が正しいこと' do
         subject
         expect(response).to render_template(:edit)
@@ -108,13 +123,16 @@ RSpec.describe CategoriesController, type: :request do
   describe 'DELETE #destroy' do
     subject { delete category_path(category) }
     let!(:category) { create(:category) }
+
     it '適切なステータスコードが返ってくること' do
       subject
       expect(response).to have_http_status 302
     end
+
     it 'レコードがひとつ減ること' do
       expect { subject }.to change(Category, :count).by(-1)
     end
+
     it 'redirect 先が正しいこと' do
       subject
       expect(response).to redirect_to(categories_path)
