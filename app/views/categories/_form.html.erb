@@ -1,7 +1,7 @@
 <%= flash.now[:alert] %>
 
 <%= form_with model: @category, local: true do |form| %>
-    
+  <%= render 'categories/error_messages' %>
   <p><%= form.label :title %><br>
     <%= form.text_field :title %> 
   </p>
