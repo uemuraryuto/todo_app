@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Category, type: :model do
-
   describe 'validations' do
     context '正常系' do
       it 'バリデーションエラーが出ないこと' do
