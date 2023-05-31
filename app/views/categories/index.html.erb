@@ -1,0 +1,7 @@
+<%= link_to 'カテゴリー登録', new_category_path %>
+<%= flash[:notice]%>
+<ul>
+  <% @categories.each do |category| %>
+    <li><%= link_to(category.title, category_path(category)) %></li>
+  <% end %>    
+</ul>    
