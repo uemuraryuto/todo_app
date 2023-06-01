@@ -1,5 +1,4 @@
 class CategoriesController < ApplicationController
-  rescue_from ActiveRecord::RecordNotFound, with: :render_404
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -45,10 +44,6 @@ class CategoriesController < ApplicationController
       flash.now[:notice]='カテゴリーの削除に失敗しました'
       render 'show'
     end
-  end
-
-  def render_404
-    render file: 'public/404.html', status: 404
   end
 
     private
