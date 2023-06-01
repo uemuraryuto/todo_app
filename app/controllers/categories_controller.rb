@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound, with: :render_404
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -45,6 +46,10 @@ class CategoriesController < ApplicationController
       render 'show'
     end
   end
+
+  def render_404
+    render file: 'public/404.html', status: 404
+  end  
 
     private
       def category_params
