@@ -16,7 +16,7 @@ RSpec.describe CategoriesController, type: :request do
       expect(response).to have_http_status 200
     end
 
-    it 'レコードが拾えないこと' do
+    it '404ステータスが返ること' do
       get category_path(0)
       expect(response).to have_http_status 404
     end
