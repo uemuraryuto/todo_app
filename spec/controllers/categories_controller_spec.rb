@@ -15,6 +15,11 @@ RSpec.describe CategoriesController, type: :request do
       get category_path(category)
       expect(response).to have_http_status 200
     end
+
+    it '404ステータスが返ること' do
+      get category_path(0)
+      expect(response).to have_http_status 404
+    end
   end
 
   describe 'GET #new' do
