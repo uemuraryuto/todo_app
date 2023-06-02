@@ -79,3 +79,5 @@ group :test do
 end
 
 gem 'dotenv'
+
+gem 'rails-i18n'

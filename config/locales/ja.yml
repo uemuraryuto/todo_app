@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    attributes:
+      task:
+        title: タイトル
+        body: 本文
+        category: カテゴリー
+      category:
+        title: タイトル
