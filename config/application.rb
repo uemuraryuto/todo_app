@@ -19,5 +19,7 @@ module TodoApp
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
+    config.active_record.default_timezone = :local
+    config.time_zone = 'Tokyo'
   end
 end
