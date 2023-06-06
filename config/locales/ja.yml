@@ -5,5 +5,19 @@ ja:
         title: タイトル
         body: 本文
         category: カテゴリー
+        deadline_on: 終了期限
+        status: ステータス
+        priority: 優先順位
       category:
         title: タイトル
+  enums:
+    task:
+      status:
+        done: 完了
+        doing: 着手
+        not_started: 未着手   
+      priority:
+        upper: 高
+        middle: 中
+        lower: 低     
+      

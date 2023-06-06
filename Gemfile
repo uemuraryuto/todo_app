@@ -81,3 +81,4 @@ end
 gem 'dotenv'
 
 gem 'rails-i18n'
+gem 'enum_help'

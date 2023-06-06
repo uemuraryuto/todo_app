@@ -19,6 +19,7 @@ class TasksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:alert] = 'タスクの登録に失敗しました'
+      error_message = @task.errors.full_messages.join(", ")
       render 'new', status: :unprocessable_entity
     end
   end
@@ -48,7 +49,7 @@ class TasksController < ApplicationController
 
     private
       def task_params
-        params.require(:task).permit(:title, :body, category_ids: [])
+        params.require(:task).permit(:title, :body, :deadline_on, :status, :priority, category_ids: [])
       end
 
       def set_task
