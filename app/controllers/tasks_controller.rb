@@ -19,7 +19,7 @@ class TasksController < ApplicationController
       redirect_to root_path
     else
       flash.now[:alert] = 'タスクの登録に失敗しました'
-      error_message = @task.errors.full_messages.join(", ")
+      error_message = @task.errors.full_messages.join(', ')
       render 'new', status: :unprocessable_entity
     end
   end
