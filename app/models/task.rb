@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-  has_many :tasks_categories
+  has_many :tasks_categories, dependent: :destroy
   has_many :categories, through: :tasks_categories
 
   enum :status, { done: 0, doing: 1, not_started: 2 }
