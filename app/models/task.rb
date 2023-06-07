@@ -7,11 +7,11 @@ class Task < ApplicationRecord
 
   validates :title, presence: true
 
-  validate :deadline_check
+  validate :check_deadline_past
 
-  def deadline_check
-    if deadline_on.present? && deadline_on < Date.today
-      errors.add(:deadline_on, 'が本日以前の日付なので登録できません')
-    end
+  def check_deadline_past
+    return if deadline_on.blank?
+    return if deadline_on >= Date.today
+    errors.add(:deadline_on, 'が本日以前の日付なので登録できません')
   end
 end
