@@ -10,8 +10,8 @@ class Task < ApplicationRecord
   validate :check_deadline_past
 
   def check_deadline_past
-    return if deadline_on.blank?
-    return if deadline_on >= Date.today
-    errors.add(:deadline_on, 'が本日以前の日付なので登録できません')
+    if deadline_on < Date.today
+      errors.add(:deadline_on, 'が本日以前の日付なので登録できません')
+    end
   end
 end
