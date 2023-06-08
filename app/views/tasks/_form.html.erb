@@ -10,11 +10,22 @@
     <%= form.text_area :body %> 
   </p>
 
-  <%= form.label :category_ids, 'カテゴリー' %><br>
+  <p><%= form.label :category_ids, 'カテゴリー' %><br>
     <%= form.collection_check_boxes :category_ids, Category.all, :id, :title do |cb| %>
       <%= cb.check_box %>
       <%= cb.label %>
     <% end %>
+  </p>  
+
+  <%= form.label :deadline_on, '終了期限' %><br>
+  <%= form.date_field :deadline_on %><br>
+
+  <%= form.label :status, 'ステータス' %><br>
+  <%= form.select :status, Task.statuses.keys.to_a.map  { |p| [Task.statuses_i18n[p], p] } %><br>
+
+  <%= form.label :priority, '優先順位' %><br>
+  <%= form.select :priority, Task.priorities.keys.to_a.map { |p| [Task.priorities_i18n[p], p] } %><br>
 
   <%= form.submit %> 
 <% end %>
+

@@ -12,6 +12,10 @@ RSpec.describe Task, type: :model do
       it 'タイトルが空のときバリデーションエラーが出ること' do
         expect(build(:task, title: '')).to be_invalid
       end
+
+      it '本日以前の日付のときバリデーションエラーが出ること' do
+        expect(build(:task, deadline_on: Date.yesterday)).to be_invalid
+      end
     end
   end
 end

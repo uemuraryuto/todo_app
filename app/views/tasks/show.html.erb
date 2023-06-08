@@ -1,6 +1,9 @@
 <ul>
   <li><%= @task.title %></li>
   <li><%= @task.body %></li>
+  <li><%= @task.deadline_on.strftime('%Y年 %m月 %d日') %></li>
+  <li><%= @task.status_i18n %></li>
+  <li><%= @task.priority_i18n %></li>
 </ul>  
 <p>選択したカテゴリー</p>
 <ul>

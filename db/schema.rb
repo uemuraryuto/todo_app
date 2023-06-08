@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_26_064138) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_06_070743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -25,6 +25,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_26_064138) do
     t.text "body", comment: "本文"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "deadline_on", default: -> { "CURRENT_DATE" }, null: false, comment: "終了期限"
+    t.integer "status", default: 2, null: false, comment: "ステータス"
+    t.integer "priority", default: 1, null: false, comment: "優先順位"
   end
 
   create_table "tasks_categories", force: :cascade do |t|

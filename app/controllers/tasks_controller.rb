@@ -2,7 +2,7 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.not_done
   end
 
   def show
@@ -48,7 +48,7 @@ class TasksController < ApplicationController
 
     private
       def task_params
-        params.require(:task).permit(:title, :body, category_ids: [])
+        params.require(:task).permit(:title, :body, :deadline_on, :status, :priority, category_ids: [])
       end
 
       def set_task
