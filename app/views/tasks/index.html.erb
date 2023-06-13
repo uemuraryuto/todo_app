@@ -6,3 +6,15 @@
     <li><%= link_to(task.title, task_path(task)) %></li>
   <% end %>    
 </ul>    
+<p>タスク検索</p>
+<%= search_form_for @q do |f| %>
+  <%= f.label :title_cont, 'タイトル' %>
+  <%= f.search_field :title_cont %><br>
+  <%= f.label :body_cont, '説明文' %>
+  <%= f.search_field :body_cont %><br>
+  <%= f.label :categories_title_cont, 'カテゴリー' %>
+  <%= f.collection_select :categories_title_cont, Category.all, :title, :title, include_blank: true %>
+
+
+  <%= f.submit '検索' %>
+<% end %>
