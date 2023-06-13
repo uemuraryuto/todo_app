@@ -16,7 +16,7 @@ class Task < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title body]
+    %w[title body deadline_on priority]
   end
 
   def self.ransackable_associations(auth_object = nil)
