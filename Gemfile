@@ -81,4 +81,11 @@ end
 gem 'dotenv'
 
 gem 'rails-i18n'
+
 gem 'enum_help'
+
+gem 'ransack'
+
+gem 'pry-rails'
+
+gem 'pry-byebug'

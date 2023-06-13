@@ -2,7 +2,8 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.not_done
+    @q = Task.ransack(params[:q])
+    @tasks = @q.result.not_done
   end
 
   def show

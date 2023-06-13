@@ -14,4 +14,12 @@ class Task < ApplicationRecord
       errors.add(:deadline_on, 'が本日以前の日付なので登録できません')
     end
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title body]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[categories]
+  end
 end
