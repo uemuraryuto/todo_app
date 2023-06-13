@@ -2,6 +2,8 @@
 <%= link_to '新規投稿', new_task_path %>
 <%= flash[:notice]%>
 <ul>
+  <%= sort_link(@q, :deadline_on, "終了期限" )%>
+  <%= sort_link(@q, :priority, "優先順位" )%>
   <% @tasks.each do |task| %>
     <li><%= link_to(task.title, task_path(task)) %></li>
   <% end %>    
