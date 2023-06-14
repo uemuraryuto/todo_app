@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @q = Task.ransack(params[:q])
-    @tasks = @q.result.not_done
+    @tasks = @q.result.not_done.page(params[:page])
   end
 
   def show
