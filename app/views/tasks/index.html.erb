@@ -8,6 +8,7 @@
     <li><%= link_to(task.title, task_path(task)) %></li>
   <% end %>    
 </ul>    
+<%= paginate @tasks %>
 <p>タスク検索</p>
 <%= search_form_for @q do |f| %>
   <%= f.label :title_cont, 'タイトル' %>
@@ -21,3 +22,4 @@
 
   <%= f.submit '検索' %>
 <% end %>
+
