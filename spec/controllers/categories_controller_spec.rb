@@ -6,6 +6,18 @@ RSpec.describe CategoriesController, type: :request do
       get categories_path
       expect(response).to have_http_status 200
     end
+
+    let!(:category1) { create(:category, title: 'Example Category') }
+
+    it 'データが存在する場合、一致するレコードを表示すること' do
+      get categories_path, params: { search: 'Example' }
+      expect(response.body).to include(category1.title)
+    end
+
+    it '一致するデータが存在しない場合、レコードを表示しないこと' do
+      get categories_path, params: { search: 'Nonexistent' }
+      expect(response.body).not_to include(category1.title)
+    end
   end
 
   describe 'GET #show' do
