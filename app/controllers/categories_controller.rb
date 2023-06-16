@@ -2,8 +2,7 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
 
   def index
-    @categories = Category.all.page(params[:page])
-    @categories = @categories.where('title LIKE ?', "%#{params[:search]}%") if params[:search].present?
+    @categories = Category.categories_search(params[:search]).page(params[:page])
   end
 
   def show

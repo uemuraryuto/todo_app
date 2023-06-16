@@ -4,6 +4,8 @@ class Category < ApplicationRecord
 
   validates :title, presence: true
 
+  scope :categories_search, -> (search) { search.present? ? where('title LIKE ?', "%#{search}%") : all }
+
   def self.ransackable_attributes(auth_object = nil)
     super + ['title']
   end
