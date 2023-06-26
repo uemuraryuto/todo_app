@@ -31,7 +31,7 @@ class Task < ApplicationRecord
 
     csv = CSV.parse(csv_string, headers: true)
     csv.each.with_index(2) do |row, line_number|
-      task = Task.find_or_initialize_by(id: row['id'].to_i)
+      task = Task.find_or_initialize_by(id: row['id'])
 
       # 属性の設定
       task.title = row['title']
