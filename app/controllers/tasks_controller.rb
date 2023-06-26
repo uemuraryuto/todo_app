@@ -1,9 +1,29 @@
+require 'csv'
+
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
     @q = Task.ransack(params[:q])
     @tasks = @q.result.not_done.page(params[:page])
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        bom = "\uFEFF"
+        csv_data = CSV.generate(bom) do |csv|
+          csv_header = Task.column_names + ['category_titles'] - ['created_at', 'updated_at']
+          csv << csv_header
+
+          @tasks.each do |task|
+            category_titles = task.categories.pluck(:title)
+            csv << [task.id, task.title, task.body, task.deadline_on, task.status, task.priority, category_titles.to_json]
+          end
+        end
+
+        send_data csv_data, filename: 'tasks.csv', type: 'text/csv'
+      end
+    end
   end
 
   def show
@@ -45,6 +65,17 @@ class TasksController < ApplicationController
       flash.now[:alert] = 'タスクを削除できませんでした'
       render 'show'
     end
+  end
+
+  def import
+    file = params[:file]
+    error_messages = Task.import(file)
+    if error_messages.any?
+      flash[:error] = error_messages.join('\n')
+    else
+      flash[:success] = 'Import successful.'
+    end
+    redirect_to root_path
   end
 
     private

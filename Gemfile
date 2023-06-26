@@ -91,3 +91,5 @@ gem 'pry-rails'
 gem 'pry-byebug'
 
 gem 'kaminari'
+
+gem 'roo'
