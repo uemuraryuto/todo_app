@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'tasks#index'
   resources :tasks do
-    collection { post :import }
+    post :import, on: :collection
   end
   resources :categories
 end

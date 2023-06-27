@@ -24,6 +24,7 @@
 
   <%= f.submit '検索' %>
 <% end %>
+
 <%= link_to "csvで出力する",tasks_path(format: :csv) %>
 <%= form_tag import_tasks_path, multipart: true do %>
   <%= file_field_tag :file %>

@@ -315,7 +315,6 @@ DEPENDENCIES
   rails-controller-testing
   rails-i18n
   ransack
-  roo
   rspec-rails
   rubocop
   rubocop-performance

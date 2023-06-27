@@ -68,8 +68,7 @@ class TasksController < ApplicationController
   end
 
   def import
-    file = params[:file]
-    error_messages = Task.import(file)
+    error_messages = Task.import(params[:file])
     if error_messages.any?
       flash[:error] = error_messages.join('\n')
     else

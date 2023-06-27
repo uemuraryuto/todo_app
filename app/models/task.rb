@@ -1,3 +1,5 @@
+require 'csv'
+
 class Task < ApplicationRecord
   has_many :tasks_categories, dependent: :destroy
   has_many :categories, through: :tasks_categories
@@ -40,8 +42,12 @@ class Task < ApplicationRecord
       task.status = row['status']
       task.priority = row['priority']
 
-      category_titles = JSON.parse(row['category_titles']) rescue []
-      task.categories = Category.where(title: category_titles)
+      begin
+        category_titles = JSON.parse(row['category_titles'])
+        task.categories = Category.where(title: category_titles)
+      rescue JSON::ParserError
+        error_messages << "#{line_number}行目でエラーが出ています: カテゴリーのJSON解析に失敗しました"
+      end
 
       unless task.save
         error_messages << "#{line_number}行目でエラーが出ています: #{task.errors.full_messages.join(', ')}"
