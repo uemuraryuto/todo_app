@@ -2,6 +2,7 @@ ja:
   activerecord:
     attributes:
       task:
+        id: ID
         title: タイトル
         body: 本文
         category: カテゴリー
@@ -20,4 +21,20 @@ ja:
         upper: 高
         middle: 中
         lower: 低     
-      
+  csv:
+    headers:
+      id: 'ID'
+      title: 'タイトル'
+      body: '本文'
+      deadline_on: '終了期限'
+      status: 'ステータス'
+      priority: '優先度'
+      category_titles: 'カテゴリー'
+    status:
+        done: 完了
+        doing: 着手
+        not_started: 未着手   
+    priority:
+      upper: 高
+      middle: 中
+      lower: 低

@@ -31,19 +31,23 @@ class Task < ApplicationRecord
     csv_data = File.read(file.path)
     csv_string = csv_data.gsub("\uFEFF", '')
 
+    header_mapping = {
+      'ID' => 'id',
+      'タイトル' => 'title',
+      '本文' => 'body',
+      '終了期限' => 'deadline_on',
+      'ステータス' => 'status',
+      '優先度' => 'priority',
+      'カテゴリー' => 'category_titles'
+    }
+
     csv = CSV.parse(csv_string, headers: true)
     csv.each.with_index(2) do |row, line_number|
-      task = Task.find_or_initialize_by(id: row['id'])
-
-      # 属性の設定
-      task.title = row['title']
-      task.body = row['body']
-      task.deadline_on = Date.parse(row['deadline_on'])
-      task.status = row['status']
-      task.priority = row['priority']
+      task = Task.find_or_initialize_by(id: row['ID'])
+      task.attributes = row.to_hash.transform_keys { |key| header_mapping[key] }.except('category_titles')
 
       begin
-        category_titles = JSON.parse(row['category_titles'])
+        category_titles = JSON.parse(row['カテゴリー'].split(',').to_json)
         task.categories = Category.where(title: category_titles)
       rescue JSON::ParserError
         error_messages << "#{line_number}行目でエラーが出ています: カテゴリーのJSON解析に失敗しました"
