@@ -1,6 +1,4 @@
 require 'csv'
-require 'i18n'
-
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
@@ -13,7 +11,7 @@ class TasksController < ApplicationController
       format.csv do
         bom = "\uFEFF"
         csv_header = (Task.column_names + ['category_titles'] - ['created_at', 'updated_at']).map do |column|
-          I18n.t("csv.headers.#{column}", default: column)
+          t("csv.headers.#{column}", default: column)
         end
 
         csv_data = CSV.generate(bom) do |csv|
@@ -26,8 +24,8 @@ class TasksController < ApplicationController
               task.title,
               task.body,
               task.deadline_on,
-              I18n.t("csv.status.#{task.status}", default: task.status),
-              I18n.t("csv.priority.#{task.priority}", default: task.priority),
+              t("csv.status.#{task.status}", default: task.status),
+              t("csv.priority.#{task.priority}", default: task.priority),
               category_titles
             ]
           end
