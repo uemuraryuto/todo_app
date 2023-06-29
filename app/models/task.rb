@@ -41,10 +41,26 @@ class Task < ApplicationRecord
       'カテゴリー' => 'category_titles'
     }
 
+    status_mapping = {
+      '未着手' => 'not_started',
+      '着手' => 'doing',
+      '完了' => 'done'
+    }
+
+    priority_mapping = {
+      '低' => 'lower',
+      '中' => 'middle',
+      '高' => 'upper'
+    }
+
     csv = CSV.parse(csv_string, headers: true)
     csv.each.with_index(2) do |row, line_number|
       task = Task.find_or_initialize_by(id: row['ID'])
-      task.attributes = row.to_hash.transform_keys { |key| header_mapping[key] }.except('category_titles')
+      transformed_attributes = row.to_hash.transform_keys { |key| header_mapping[key] }.except('category_titles')
+      transformed_attributes['status'] = status_mapping[row['ステータス']]
+      transformed_attributes['priority'] = priority_mapping[row['優先度']]
+
+      task.attributes = transformed_attributes
 
       begin
         category_titles = JSON.parse(row['カテゴリー'].split(',').to_json)
