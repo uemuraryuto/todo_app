@@ -31,34 +31,20 @@ class Task < ApplicationRecord
     csv_data = File.read(file.path)
     csv_string = csv_data.gsub("\uFEFF", '')
 
-    header_mapping = {
-      'ID' => 'id',
-      'タイトル' => 'title',
-      '本文' => 'body',
-      '終了期限' => 'deadline_on',
-      'ステータス' => 'status',
-      '優先度' => 'priority',
-      'カテゴリー' => 'category_titles'
-    }
-
-    status_mapping = {
-      '未着手' => 'not_started',
-      '着手' => 'doing',
-      '完了' => 'done'
-    }
-
-    priority_mapping = {
-      '低' => 'lower',
-      '中' => 'middle',
-      '高' => 'upper'
-    }
-
     csv = CSV.parse(csv_string, headers: true)
     csv.each.with_index(2) do |row, line_number|
       task = Task.find_or_initialize_by(id: row['ID'])
-      transformed_attributes = row.to_hash.transform_keys { |key| header_mapping[key] }.except('category_titles')
-      transformed_attributes['status'] = status_mapping[row['ステータス']]
-      transformed_attributes['priority'] = priority_mapping[row['優先度']]
+      transformed_attributes = {}
+      I18n.with_locale(:en) do
+        row.each do
+          transformed_attributes = row.to_hash.transform_keys do |key|
+            I18n.t("csv.headers.#{key}", default: key)
+          end.except('category_titles')
+        end
+
+        transformed_attributes['status'] = I18n.t("csv.status.#{row['ステータス']}", default: row['ステータス'])
+        transformed_attributes['priority'] = I18n.t("csv.priority.#{row['優先度']}", default: row['優先度'])
+      end
 
       task.attributes = transformed_attributes
 
