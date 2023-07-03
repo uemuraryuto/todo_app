@@ -1,6 +1,8 @@
 <%= link_to 'カテゴリー一覧', categories_path %>
 <%= link_to '新規投稿', new_task_path %>
-<%= flash[:notice]%>
+<%= flash[:notice] %>
+<%= flash[:success] %>
+<%= flash[:error] %>
 <ul>
   <%= sort_link(@q, :deadline_on, "終了期限" )%>
   <%= sort_link(@q, :priority, "優先順位" )%>
@@ -23,3 +25,8 @@
   <%= f.submit '検索' %>
 <% end %>
 
+<%= link_to "csvで出力する", tasks_path(format: :csv) %>
+<%= form_tag import_tasks_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "インポート" %>
+<% end %>
